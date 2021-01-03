@@ -4,12 +4,24 @@
 		header('location:signin.php');
 	}
 	include('connect.php');
-	$sql = "SELECT NhanVien.ID AS idnv,HangHoa.ID AS idhh,hoten,ten FROM NhanVien,HangHoa WHERE NhanVien.ID = HangHoa.ID";
+	$sql = "SELECT NhanVien.ID AS idnv,hoten FROM NhanVien";
+	$sql2 = "SELECT HangHoa.ID AS idhh,ten FROM HangHoa";
+
 	$stmt = $conn->prepare($sql);
 	$query = $stmt->execute();
+
+	$stmt1 = $conn->prepare($sql2);
+	$query1 = $stmt1->execute();
+
 	$result = array();
+	$result1 = array();
+
 	while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 		$result[] = $row;
+	}
+	
+	while($row1=$stmt1->fetch(PDO::FETCH_ASSOC)){
+		$result1[] = $row1;
 	}
 
 	if(!empty($_POST['submit'])){
@@ -87,7 +99,7 @@
 						<fieldset class="form-group">
 							<label for="formGroupExampleInput2">Hàng hóa</label>
 							<select class="form-control" name="hanghoa" placeholder="Chọn hàng hóa">
-								<<?php foreach ($result as $items): ?>
+								<<?php foreach ($result1 as $items): ?>
 									<option value="<?php echo $items['idhh']; ?>"><?php echo $items['ten']; ?></option>
 								<?php endforeach ?>
 							</select>
