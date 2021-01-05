@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	date_default_timezone_set('Asia/Ho_Chi_Minh');
 	include('connect.php');
 	if(!empty($_POST['submit'])){
 		if(isset($_POST['username'])&&isset($_POST['password'])){
@@ -14,6 +15,7 @@
 			}
 			else{
 				$_SESSION['username'] = $username;
+				$_SESSION['datetime'] = date("d/m/Y H:i:s");
 				header("location:index.php");
 			}
 		}
