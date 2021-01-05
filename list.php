@@ -78,7 +78,9 @@
 								<td><?php echo $items['nguoinhan'];?></td>
 								<td><?php echo $items['ten'];?></td>
 								<td><?php echo $items['soluong'];?></td>
-								<td><a href="add_vandon.php">Thêm</a></td>
+								<th><a href="add_vandon.php">Thêm</a></th>
+							<th><a href="edit_vandon.php?idvd=<?php echo $items['ID'];?>&idvdct=<?php echo $items['IDCT'];?>">Sửa</a></th>
+							<th><a href="delete_vandon.php?idvd=<?php echo $items['ID'];?>&idvdct=<?php echo $items['IDCT'];?>">Xóa</a></th>
 							</tr>
 						<?php endforeach?>
 						</tbody>

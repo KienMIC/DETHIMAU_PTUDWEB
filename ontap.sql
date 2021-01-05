@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 03, 2021 lúc 03:43 AM
--- Phiên bản máy phục vụ: 10.4.14-MariaDB
--- Phiên bản PHP: 7.4.11
+-- Thời gian đã tạo: Th1 05, 2021 lúc 01:26 PM
+-- Phiên bản máy phục vụ: 10.4.17-MariaDB
+-- Phiên bản PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,11 +40,8 @@ CREATE TABLE `chitietvandon` (
 
 INSERT INTO `chitietvandon` (`ID`, `vandon`, `hanghoa_ID`, `soluong`) VALUES
 ('1', 'HN123', 2, 1),
-('12312', 'HP1234', 2, 10),
-('2222', '1111', 2, 10),
-('2341234', 'LS123', 1, 11),
-('8989', '6868', 1, 100),
-('ẻ4r4rtwegtwer', '2342345', 2, 2312412);
+('ẻ4r4rtwegtwer', '2342345', 2, 2312412),
+('hrh', 'rrrh', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -95,6 +92,7 @@ INSERT INTO `hangsanxuat` (`ID`, `ten`, `mota`) VALUES
 --
 CREATE TABLE `hienthi` (
 `ID` varchar(32)
+,`IDCT` varchar(32)
 ,`hoten` varchar(255)
 ,`nguoinhan` varchar(255)
 ,`ten` varchar(255)
@@ -166,12 +164,9 @@ CREATE TABLE `vandon` (
 --
 
 INSERT INTO `vandon` (`ID`, `nhanvien_ID`, `trangthai`, `nguoinhan`, `dienthoai`, `diachi`, `ngaygiaohang`, `ghichu`) VALUES
-('1111', 2, 0, 'Trần Hương Giang', '', '', '0000-00-00 00:00:00', ''),
 ('2342345', 1, 0, '', '', '', '0000-00-00 00:00:00', ''),
-('6868', 1, 0, 'Nguyễn Văn B', '', '', '0000-00-00 00:00:00', ''),
 ('HN123', 1, 1, 'Nguyễn Văn A', '0945748245', 'Kiến An - Hải Phòng', '2021-01-08 23:02:32', ''),
-('HP1234', 2, 0, 'Trần Hương Giang', '', '', '0000-00-00 00:00:00', ''),
-('LS123', 1, 0, 'Hiền', '', '', '0000-00-00 00:00:00', '');
+('rrrh', 1, 0, 'hrh', '', '', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -180,7 +175,7 @@ INSERT INTO `vandon` (`ID`, `nhanvien_ID`, `trangthai`, `nguoinhan`, `dienthoai`
 --
 DROP TABLE IF EXISTS `hienthi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `hienthi`  AS SELECT `vandon`.`ID` AS `ID`, `nhanvien`.`hoten` AS `hoten`, `vandon`.`nguoinhan` AS `nguoinhan`, `hanghoa`.`ten` AS `ten`, `chitietvandon`.`soluong` AS `soluong` FROM (((`vandon` join `nhanvien`) join `hanghoa`) join `chitietvandon`) WHERE `vandon`.`ID` = `chitietvandon`.`vandon` AND `hanghoa`.`ID` = `chitietvandon`.`hanghoa_ID` AND `nhanvien`.`ID` = `vandon`.`nhanvien_ID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `hienthi`  AS SELECT `vandon`.`ID` AS `ID`, `chitietvandon`.`ID` AS `IDCT`, `nhanvien`.`hoten` AS `hoten`, `vandon`.`nguoinhan` AS `nguoinhan`, `hanghoa`.`ten` AS `ten`, `chitietvandon`.`soluong` AS `soluong` FROM (((`vandon` join `nhanvien`) join `hanghoa`) join `chitietvandon`) WHERE `vandon`.`ID` = `chitietvandon`.`vandon` AND `hanghoa`.`ID` = `chitietvandon`.`hanghoa_ID` AND `nhanvien`.`ID` = `vandon`.`nhanvien_ID` ;
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -247,7 +242,7 @@ ALTER TABLE `hanghoa`
 -- Các ràng buộc cho bảng `vandon`
 --
 ALTER TABLE `vandon`
-  ADD CONSTRAINT `vandon_ibfk_1` FOREIGN KEY (`nhanvien_ID`) REFERENCES `nhanvien` (`id`);
+  ADD CONSTRAINT `vandon_ibfk_1` FOREIGN KEY (`nhanvien_ID`) REFERENCES `nhanvien` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
