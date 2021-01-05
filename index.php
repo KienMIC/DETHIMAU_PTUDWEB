@@ -1,5 +1,4 @@
 <?php
-	date_default_timezone_set('Asia/Ho_Chi_Minh');
 	session_start();
 	if(!isset($_SESSION['username'])){
 		header('location:signin.php');
@@ -33,7 +32,7 @@
 						</li>
 						<li class="nav-item">
 							XIN CHÀO <?php echo($_SESSION['username']) ?>
-							Đăng nhập vào lúc <?php echo date("d/m/Y H:i:s")?>
+							Đăng nhập vào lúc <?php echo $_SESSION['datetime']?>
 						</li>
 					</ul>
 			<p>Đây là Project thực hiện đề ôn tập PTUD TRÊN NỀN WEB</p>
